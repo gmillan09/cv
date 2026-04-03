@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gabriel Millán — Energy Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0c0f;
+      --surface: #111418;
+      --border: #1e2530;
+      --accent: #e8c84a;
+      --accent2: #4a9fe8;
+      --text: #e8eaf0;
+      --muted: #6b7280;
+      --card: #13171e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grid bg texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(232,200,74,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,200,74,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 52px 0 36px;
+      animation: fadeDown 0.7s ease both;
+    }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tag::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 15vw, 80px);
+      letter-spacing: 0.02em;
+      line-height: 0.92;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+    .name span { color: var(--accent); }
+
+    .title-block {
+      border-left: 2px solid var(--accent);
+      padding-left: 14px;
+      margin-bottom: 32px;
+    }
+    .title-line {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      line-height: 1.8;
+    }
+    .title-line.sub {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+      margin: 28px 0;
+    }
+
+    /* ── SUMMARY ── */
+    .summary {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #9aa3b0;
+      margin-bottom: 36px;
+      animation: fadeUp 0.7s 0.15s ease both;
+    }
+    .summary strong { color: var(--text); font-weight: 500; }
+
+    /* ── STATS ROW ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 36px;
+      animation: fadeUp 0.7s 0.25s ease both;
+    }
+    .stat {
+      background: var(--card);
+      padding: 16px 12px;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ── CONTACT CARDS ── */
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 36px;
+      animation: fadeUp 0.7s 0.35s ease both;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-item::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .contact-item:hover {
+      border-color: var(--accent);
+      background: #161a22;
+      transform: translateX(2px);
+    }
+    .contact-item:hover::after { opacity: 1; }
+
+    .contact-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 6px;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 15px;
+    }
+    .contact-info { flex: 1; min-width: 0; }
+    .contact-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .contact-value {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .contact-arrow {
+      color: var(--muted);
+      font-size: 14px;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .contact-item:hover .contact-arrow {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+
+    /* ── CV BUTTON ── */
+    .cv-section {
+      animation: fadeUp 0.7s 0.45s ease both;
+      margin-bottom: 36px;
+    }
+
+    .cv-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      background: var(--accent);
+      border-radius: 10px;
+      padding: 18px 20px;
+      text-decoration: none;
+      color: #0a0c0f;
+      transition: background 0.2s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .cv-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
+    }
+    .cv-btn:hover {
+      background: #f0d060;
+      transform: translateY(-2px);
+    }
+    .cv-btn:active { transform: translateY(0); }
+
+    .cv-btn-left { display: flex; align-items: center; gap: 14px; }
+    .cv-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(0,0,0,0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .cv-text { }
+    .cv-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.06em;
+      line-height: 1;
+    }
+    .cv-subtitle {
+      font-size: 11px;
+      opacity: 0.65;
+      margin-top: 2px;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.08em;
+    }
+    .cv-arrow {
+      font-size: 20px;
+      opacity: 0.7;
+    }
+
+    /* NOTE sobre el CV */
+    .cv-note {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 10px;
+      letter-spacing: 0.05em;
+    }
+    .cv-note a { color: var(--accent2); text-decoration: none; }
+    .cv-note a:hover { text-decoration: underline; }
+
+    /* ── LANGUAGES ── */
+    .langs {
+      animation: fadeUp 0.7s 0.55s ease both;
+      margin-bottom: 10px;
+    }
+    .lang-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+    .lang-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 6px;
+      text-align: center;
+    }
+    .lang-flag { font-size: 18px; display: block; margin-bottom: 4px; }
+    .lang-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      color: #2e3440;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="tag">Energy Specialist Engineer</div>
+    <h1 class="name">Gabriel<br><span>Millán</span></h1>
+    <div class="title-block">
+      <div class="title-line">Especialista Mercado Eléctrico Mayorista</div>
+      <div class="title-line sub">MSc. Energy Conversion & Management · Offenburg FH, Germany</div>
+      <div class="title-line sub">Ing. Mecánico-Electricista · UNC Argentina</div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <p class="summary">
+    <strong>+20 años</strong> en el sector energético argentino. Especializado en generación de energía, operación de ciclos combinados y gestión del Mercado Eléctrico Mayorista. Actualmente <strong>Jefe de Planta — EPEC Pilar</strong>.
+  </p>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Años exp.</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">96.5%</div>
+      <div class="stat-label">Disponib.</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1650</div>
+      <div class="stat-label">Días sin acc.</div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section-label">Contacto</div>
+  <div class="contact-list">
+
+    <a href="https://wa.me/5493513489320" class="contact-item" target="_blank" rel="noopener">
+      <div class="contact-icon">📱</div>
+      <div class="contact-info">
+        <div class="contact-label">WhatsApp</div>
+        <div class="contact-value">+54 9 351 348-9320</div>
+      </div>
+      <span class="contact-arrow">→</span>
+    </a>
+
+    <a href="mailto:millangabriel@gmail.com" class="contact-item">
+      <div class="contact-icon">✉️</div>
+      <div class="contact-info">
+        <div class="contact-label">Email</div>
+        <div class="contact-value">millangabriel@gmail.com</div>
+      </div>
+      <span class="contact-arrow">→</span>
+    </a>
+
+    <a href="https://ar.linkedin.com/in/gabriel-millan-60129534" class="contact-item" target="_blank" rel="noopener">
+      <div class="contact-icon">💼</div>
+      <div class="contact-info">
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-value">gabriel-millan-60129534</div>
+      </div>
+      <span class="contact-arrow">→</span>
+    </a>
+
+    <a href="https://twitter.com/gmi09" class="contact-item" target="_blank" rel="noopener">
+      <div class="contact-icon">🐦</div>
+      <div class="contact-info">
+        <div class="contact-label">Twitter / X</div>
+        <div class="contact-value">@gmi09</div>
+      </div>
+      <span class="contact-arrow">→</span>
+    </a>
+
+    <a href="https://maps.google.com/?q=Córdoba,Argentina" class="contact-item" target="_blank" rel="noopener">
+      <div class="contact-icon">📍</div>
+      <div class="contact-info">
+        <div class="contact-label">Ubicación</div>
+        <div class="contact-value">Córdoba, Argentina</div>
+      </div>
+      <span class="contact-arrow">→</span>
+    </a>
+
+  </div>
+
+  <!-- CV -->
+  <div class="cv-section">
+    <div class="section-label">Currículum Vitae</div>
+
+    <!--
+      ⚠️  REEMPLAZÁ el href de abajo con el link real de tu CV en Google Drive / Dropbox.
+          Ejemplo Google Drive:
+          https://drive.google.com/file/d/TU_ID_AQUI/view?usp=sharing
+    -->
+    <a href="#" class="cv-btn" id="cv-link">
+      <div class="cv-btn-left">
+        <div class="cv-icon">📄</div>
+        <div class="cv-text">
+          <div class="cv-title">Descargar CV</div>
+          <div class="cv-subtitle">PDF · Gabriel Millán · 2025</div>
+        </div>
+      </div>
+      <span class="cv-arrow">↓</span>
+    </a>
+
+    <p class="cv-note">
+      ⚙️ Reemplazá el link del CV antes de publicar —
+      <a href="https://drive.google.com" target="_blank">subilo a Google Drive</a> y pegá el link aquí.
+    </p>
+  </div>
+
+  <!-- LANGUAGES -->
+  <div class="langs">
+    <div class="section-label">Idiomas</div>
+    <div class="lang-grid">
+      <div class="lang-item"><span class="lang-flag">🇦🇷</span><div class="lang-name">Español</div></div>
+      <div class="lang-item"><span class="lang-flag">🇬🇧</span><div class="lang-name">Inglés</div></div>
+      <div class="lang-item"><span class="lang-flag">🇩🇪</span><div class="lang-name">Alemán</div></div>
+      <div class="lang-item"><span class="lang-flag">🇮🇹</span><div class="lang-name">Italiano</div></div>
+      <div class="lang-item"><span class="lang-flag">🇧🇷</span><div class="lang-name">Portugués</div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <footer class="footer">
+    GABRIEL MILLÁN · CÓRDOBA, ARGENTINA · 2025
+  </footer>
+
+</div>
+</body>
+</html>
